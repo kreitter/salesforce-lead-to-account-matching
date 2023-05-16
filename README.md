@@ -8,19 +8,49 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Setup
 
-1. Clone this repository to your local machine.
+1. Create a Salesforce Apex REST service for converting leads:
+    a. Log in to Salesforce.
+    b. Click on the App Launcher (grid icon on the top left), search for 'Apex Classes', and select it.
+    c. Click 'New' to create a new Apex class.
+    d. In the new class dialog, enter the class name (e.g., LeadConvertService) and the below code.
+
+        ```
+        @RestResource(urlMapping='/LeadConvert/*')
+        global with sharing class LeadConversionService {
+
+            @HttpPost
+            global static String convertLead(String leadId, String convertedStatus, String accountId, Boolean doNotCreateOpportunity) {
+                Database.LeadConvert leadConvert = new Database.LeadConvert();
+                leadConvert.setLeadId(leadId);
+                leadConvert.setAccountId(accountId);
+                leadConvert.setConvertedStatus(convertedStatus);
+                leadConvert.setDoNotCreateOpportunity(doNotCreateOpportunity);
+                
+                Database.LeadConvertResult leadConvertResult = Database.convertLead(leadConvert);
+                if (leadConvertResult.isSuccess()) {
+                    return 'Lead converted successfully: ' + leadConvertResult.getContactId();
+                } else {
+                    return 'Error converting lead: ' + leadConvertResult.getErrors();
+                }
+            }
+        }
+        ```
+
+    e. Click 'Save'.
+
+2. Clone this repository to your local machine.
 
 ```
 git clone https://github.com/kreitter/salesforce-lead-to-account-matching.git
 ```
 
-2. Ensure that you have the required Python libraries installed. You can install them using pip:
+3. Ensure that you have the required Python libraries installed. You can install them using pip:
 
 ```
 pip install simple-salesforce fuzzywuzzy pandas python-dotenv
 ```
 
-3. Set up the environment variables. Rename the .env.example to .env and fill in your Salesforce credentials:
+4. Set up the environment variables. Rename the .env.example to .env and fill in your Salesforce credentials:
 
 ```
 SALESFORCE_USERNAME=your_username
