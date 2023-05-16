@@ -9,34 +9,33 @@ These instructions will get you a copy of the project up and running on your loc
 ## Setup
 
 1. Create a Salesforce Apex REST service for converting leads:
-    a. Log in to Salesforce.
-    b. Click on the App Launcher (grid icon on the top left), search for 'Apex Classes', and select it.
-    c. Click 'New' to create a new Apex class.
-    d. In the new class dialog, enter the class name (e.g., LeadConvertService) and the below code.
+  1. Log in to Salesforce.
+  1. Click on the App Launcher (grid icon on the top left), search for 'Apex Classes', and select it.
+  1. Click 'New' to create a new Apex class.
+  1. In the new class dialog, enter the class name (e.g., LeadConvertService) and the below code.
+  1. Click 'Save'.
 
-        ```
-        @RestResource(urlMapping='/LeadConvert/*')
-        global with sharing class LeadConversionService {
+```
+@RestResource(urlMapping='/LeadConvert/*')
+global with sharing class LeadConversionService {
 
-            @HttpPost
-            global static String convertLead(String leadId, String convertedStatus, String accountId, Boolean doNotCreateOpportunity) {
-                Database.LeadConvert leadConvert = new Database.LeadConvert();
-                leadConvert.setLeadId(leadId);
-                leadConvert.setAccountId(accountId);
-                leadConvert.setConvertedStatus(convertedStatus);
-                leadConvert.setDoNotCreateOpportunity(doNotCreateOpportunity);
-                
-                Database.LeadConvertResult leadConvertResult = Database.convertLead(leadConvert);
-                if (leadConvertResult.isSuccess()) {
-                    return 'Lead converted successfully: ' + leadConvertResult.getContactId();
-                } else {
-                    return 'Error converting lead: ' + leadConvertResult.getErrors();
-                }
-            }
+    @HttpPost
+    global static String convertLead(String leadId, String convertedStatus, String accountId, Boolean doNotCreateOpportunity) {
+        Database.LeadConvert leadConvert = new Database.LeadConvert();
+        leadConvert.setLeadId(leadId);
+        leadConvert.setAccountId(accountId);
+        leadConvert.setConvertedStatus(convertedStatus);
+        leadConvert.setDoNotCreateOpportunity(doNotCreateOpportunity);
+        
+        Database.LeadConvertResult leadConvertResult = Database.convertLead(leadConvert);
+        if (leadConvertResult.isSuccess()) {
+            return 'Lead converted successfully: ' + leadConvertResult.getContactId();
+        } else {
+            return 'Error converting lead: ' + leadConvertResult.getErrors();
         }
-        ```
-
-    e. Click 'Save'.
+    }
+}
+```
 
 2. Clone this repository to your local machine.
 
