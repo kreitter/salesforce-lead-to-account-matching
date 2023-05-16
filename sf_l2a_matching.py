@@ -11,12 +11,12 @@ sf = Salesforce(username=os.getenv('SALESFORCE_USERNAME'),
                 password=os.getenv('SALESFORCE_PASSWORD'),
                 security_token=os.getenv('SALESFORCE_SECURITY_TOKEN'))
 
-# Query Leads and Accounts
-lead_query = "SELECT Id, Company, Email, Status FROM Lead"
-account_query = "SELECT Id, Name, Website FROM Account"
+# Query Leads and Accounts using Bulk API
+lead_job = sf.bulk.Lead.query("SELECT Id, Company, Email, Status FROM Lead")
+account_job = sf.bulk.Account.query("SELECT Id, Name, Website FROM Account")
 
-leads = sf.query_all(lead_query)['records']
-accounts = sf.query_all(account_query)['records']
+leads = lead_job
+accounts = account_job
 
 # Convert to DataFrames
 leads_df = pd.DataFrame(leads).drop(columns='attributes')
