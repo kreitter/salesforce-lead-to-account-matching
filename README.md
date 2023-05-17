@@ -13,7 +13,6 @@ These instructions will get you a copy of the project up and running on your loc
   - Click on the App Launcher (grid icon on the top left), search for 'Apex Classes', and select it.
   - Click 'New' to create a new Apex class.
   - In the new class dialog, enter the class name (e.g., LeadConvertService) and the below code.
-  - Click 'Save'.
 
 ```
 @RestResource(urlMapping='/LeadConvert/*')
@@ -36,6 +35,7 @@ global with sharing class LeadConversionService {
     }
 }
 ```
+  - Click 'Save'.
 
 2. Clone this repository to your local machine.
 
