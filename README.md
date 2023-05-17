@@ -10,7 +10,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Create a Salesforce Apex REST service for converting leads:
   - Log in to Salesforce.
-  - Click on the App Launcher (grid icon on the top left), search for 'Apex Classes', and select it.
+  - Click on the gear icon at the top right, select Setup.
+  - Use Quick Search at the top left to find and navigate to Apex Classes.
   - Click 'New' to create a new Apex class.
   - In the new class dialog, enter the class name (e.g., LeadConvertService) and the below code.
 
