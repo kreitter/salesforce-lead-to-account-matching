@@ -13,7 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
   - Click on the gear icon at the top right, select Setup.
   - Use Quick Search at the top left to find and navigate to Apex Classes.
   - Click 'New' to create a new Apex class.
-  - In the new class dialog, enter the class name (e.g., LeadConvertService) and the below code.
+  - In the new class dialog, enter the class name LeadConvertService and the below code.
 
 ```
 @RestResource(urlMapping='/LeadConvert/*')
